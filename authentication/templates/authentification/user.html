@@ -13,6 +13,15 @@
     <p>updated_at: {{info.updated_at}}</p>
     <p>role: {{info.role}}</p>
     <p>is_active: {{info.is_active}}</p>
+        <p>Користувач замовив книжки: </p>
+        <ul>
+            {% if not books %}
+            <p>Користувач ще нічого не замовив</p>
+            {% endif %}
+    {% for item in books %}
+    <li><a href="\books\{{item.id}}"> {{ item }}</a></li>
+    {% endfor %}
+        </ul>
 </div>
 
 <a href="./">До списку користувачів</a>

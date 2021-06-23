@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+
+from authentication.models import CustomUser
 from .forms import AddForm
 from .models import Book
 
@@ -43,9 +45,14 @@ def create_book(request):
 def get_book(request, book_id):
     book = Book.get_by_id(book_id)
     info = Book.to_dict(book)
+    users = []
+    users_list = book.order_set.all().values_list()
+    for user in users_list:
+        users.append(CustomUser.get_by_id(user[1]))
     context = {
         'title': f"{info['name']}",
-        'info': info
+        'info': info,
+        'users': users
     }
     context.update(BASE_CONREXT)
     return render(request, 'book/user.html', context)

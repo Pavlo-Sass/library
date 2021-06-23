@@ -20,9 +20,11 @@ def index(request):
 #
 def get_author(request, author_id):
     info = Author.get_by_id(author_id)
+    books = info.books.all()
     context = {
         'title': f"{info.name} {info.surname} {info.patronymic}",
-        'info': info
+        'info': info,
+        'books': books
     }
     context.update(BASE_CONREXT)
     return render(request, 'author/user.html', context)

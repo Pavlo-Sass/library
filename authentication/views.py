@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .forms import AddForm
 from .models import CustomUser
+from book.models import Book
 
 
 menu = [1, 2, 3]
@@ -21,9 +22,17 @@ def index(request):
 
 def get_user(request, user_id):
     info = CustomUser.get_by_id(user_id)
+    # books = info.order_set.all().values_list()
+    books = []
+    books_list = info.order_set.all().values_list()
+    for book in books_list:
+        books.append(Book.get_by_id(book[2]))
+    # books = info.order_set.all().values_list()[0][0]
+    # print(books)
     context = {
         'title': f"{info.first_name} {info.middle_name} {info.last_name}",
-        'info': info
+        'info': info,
+        'books': books,
     }
     context.update(BASE_CONREXT)
     return render(request, 'authentification/user.html', context)

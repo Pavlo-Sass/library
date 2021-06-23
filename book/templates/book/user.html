@@ -8,7 +8,16 @@
     <p>Опис: {{info.description}}</p>
     <p>Кількість: {{info.count}}</p>
     <p>Автори: {{info.authors}}</p>
+    <p>Книжку замовили: </p>
+        <ul>
+            {% if not users %}
+            <p>Книжку ще ніхто не замовив</p>
+            {% endif %}
+    {% for item in users %}
+    <li><a href="\users\{{item.id}}"> {{ item }}</a></li>
+    {% endfor %}
+        </ul>
 </div>
-
-<a href="./">До списку авторів</a>
+</br>
+<a href="./">До списку книжок</a>
 {% endblock %}
