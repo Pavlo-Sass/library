@@ -38,7 +38,7 @@ class Order(models.Model):
         }
 
     @staticmethod
-    def create(user, book, plated_end_at):
+    def create(user, book, plated_end_at, **kwargs):
 
         order = Order(user=user, book=book, plated_end_at=plated_end_at)
         if book.count <= len([order for order in Order.get_not_returned_books() if order.book.id == book.id]):
@@ -60,7 +60,7 @@ class Order(models.Model):
         except Order.DoesNotExist:
             pass
 
-    def update(self, plated_end_at=None, end_at=None):
+    def update(self, plated_end_at=None, end_at=None, **kwargs):
         if plated_end_at:
             self.plated_end_at = plated_end_at
         if end_at:

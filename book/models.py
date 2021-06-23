@@ -28,7 +28,9 @@ class Book(models.Model):
         Magic method is redefined to show all information about Book.
         :return: book id, book name, book description, book count, book authors
         """
-        return str(self.to_dict())[1:-1]
+        return self.name
+        # return str(self.to_dict())[1:-1]
+
 
     def __repr__(self):
         """
@@ -36,6 +38,7 @@ class Book(models.Model):
         :return: class, id
         """
         return f'{self.__class__.__name__}(id={self.id})'
+        # return '8'
 
     @staticmethod
     def get_by_id(book_id):
@@ -113,7 +116,7 @@ class Book(models.Model):
             'authors': [author.id for author in self.authors.all()]
         }
 
-    def update(self, name=None, description=None, count=None):
+    def update(self, name=None, description=None, count=None, **kwargs):
         """
         Updates book in the database with the specified parameters.\n
         param name: Describes name of the book

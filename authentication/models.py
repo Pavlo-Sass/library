@@ -56,7 +56,9 @@ class CustomUser(AbstractBaseUser):
                  user email, user password, user updated_at, user created_at,
                  user role, user is_active
         """
-        return str(self.to_dict())[1:-1]
+        # return str(self.to_dict())[1:-1]
+        return f"{self.first_name} {self.middle_name} {self.last_name}"
+
 
     def __repr__(self):
         """
@@ -111,7 +113,7 @@ class CustomUser(AbstractBaseUser):
         return False
 
     @staticmethod
-    def create(email, password, first_name=None, middle_name=None, last_name=None):
+    def create(email, password, first_name=None, middle_name=None, last_name=None, *args, **kwargs):
         """
         :param first_name: first name of a user
         :type first_name: str
@@ -176,7 +178,7 @@ class CustomUser(AbstractBaseUser):
                middle_name=None,
                password=None,
                role=None,
-               is_active=None):
+               is_active=None, *args, **kwargs):
         """
         Updates user profile in the database with the specified parameters.\n
         :param first_name: first name of a user

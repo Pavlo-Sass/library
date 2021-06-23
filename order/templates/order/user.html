@@ -1,0 +1,15 @@
+{% extends 'authentification/base.html' %}
+{% block content %}
+<h1>{{ title }}</h1>
+
+<div>
+    <p>id: {{info.id}}</p>
+    <p>Імя: {{info.user}}</p>
+    <p>Книжка: {{info.book}}</p>
+    <p>Створено: {{info.created_at}}</p>
+    <p>Завершено: {{end_at}}</p>
+    <p>Завершити до: {{info.plated_end_at}}</p>
+</div>
+
+<a href="./">До списку замовлень</a>
+{% endblock %}

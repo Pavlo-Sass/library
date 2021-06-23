@@ -1,0 +1,35 @@
+{% extends 'authentification/base.html' %}
+{% block content %}
+<h3>
+    <a href="create/"><img src="/images/create.png"> Створити </a>
+</h3>
+<div>
+    <table>
+        <caption>{{ title }}</caption>
+            <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Count</th>
+            <th>Authors</th>
+            <th>Details</th>
+            <th>Update</th>
+            <th>Delete</th>
+            </tr>
+            {% for book in list_books %}
+                <tr>
+            <td><a href="{{book.id}}"> {{book.id}}</a></td>
+            <td><a href="{{book.id}}"> {{book.name}}</a></td>
+            <td><a href="{{book.id}}"> {{book.description}}</a></td>
+            <td><a href="{{book.id}}"> {{book.count}}</a></td>
+            <td><a href="{{book.id}}"> {{book.authors}}</a></td>
+            <td><a href="{{book.id}}"> <img src="/images/read.png" height="30" alt="Details"></a></td>
+            <td><a href="update/{{book.id}}"> <img src="/images/update.png" height="30" alt="Update"></a></td>
+            <td><a href="delete/{{book.id}}"> <img src="/images/delete.png" height="30" alt="Delete"></a></td>
+                </tr>
+            {% endfor %}
+    </table>
+
+</div>
+
+{% endblock %}

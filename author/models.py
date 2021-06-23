@@ -24,7 +24,8 @@ class Author(models.Model):
         Magic method is redefined to show all information about Author.
         :return: author id, author name, author surname, author patronymic
         """
-        return str(self.to_dict())[1:-1]
+        # return str(self.to_dict())[1:-1]
+        return self.name
 
     def __repr__(self):
         """
@@ -134,5 +135,5 @@ class Author(models.Model):
         """
         returns data for json request with QuerySet of all authors
         """
-        all_users = Author.objects.all()
+        all_users = Author.objects.order_by('name')
         return all_users
