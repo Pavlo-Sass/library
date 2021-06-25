@@ -1,4 +1,4 @@
-{% extends 'authentification/base.html' %}
+{% extends 'base.html' %}
 {% block content %}
 <h3>
     <a href="create/"><img src="/images/create.png"> Створити </a>
@@ -16,8 +16,8 @@
             <th>Delete</th>
             </tr>
             {% for user in list_users %}
-                <tr>
-            <td><a href="{{user.id}}"> {{user.id}}</a></td>
+                <tr class="{% cycle 'grey' 'white' %}">
+            <td ><a href="{{user.id}}"> {{user.id}}</a></td>
             <td><a href="{{user.id}}"> {{user.first_name}}</a></td>
             <td><a href="{{user.id}}"> {{user.middle_name}}</a></td>
             <td><a href="{{user.id}}"> {{user.last_name}}</a></td>

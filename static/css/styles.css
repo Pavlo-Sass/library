@@ -16,7 +16,7 @@ a:hover {
 	text-decoration: underline;
 }
 
-img {max-width: 600px; height: auto;}
+img {max-width: 30px; height: auto;}
 
 img.img-article-left {
 	max-width: 300px;
@@ -78,6 +78,14 @@ ul.list-articles li {
 .header {
 	background: #3F4137;
 	height: 60px;
+}
+
+.grey {
+    background-color: #ddd;
+}
+
+.white {
+    background-color: #fff;
 }
 
 .logo {

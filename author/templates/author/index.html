@@ -1,4 +1,4 @@
-{% extends 'authentification/base.html' %}
+{% extends 'base.html' %}
 {% block content %}
 <h3>
     <a href="create/"><img src="/images/create.png"> Створити </a>
@@ -17,7 +17,7 @@
             <th>Delete</th>
             </tr>
             {% for author in list_authors %}
-                <tr>
+                <tr class="{% cycle 'grey' 'white' %}">
             <td><a href="{{author.id}}"> {{author.id}}</a></td>
             <td><a href="{{author.id}}"> {{author.name}}</a></td>
             <td><a href="{{author.id}}"> {{author.surname}}</a></td>

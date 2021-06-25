@@ -1,4 +1,4 @@
-{% extends 'order/base.html' %}
+{% extends 'base.html' %}
 {% block content %}
 <h3>
     <a href="create/"><img src="/images/create.png"> Створити </a>
@@ -18,7 +18,7 @@
             <th>Delete</th>
             </tr>
             {% for order in list_orders %}
-                <tr>
+                <tr  class="{% cycle 'grey' 'white' %}">
             <td><a href="{{order.id}}"> {{order.id}}</a></td>
             <td><a href="{{order.id}}"> {{order.user}}</a></td>
             <td><a href="{{order.id}}"> {{order.book}}</a></td>
@@ -29,6 +29,7 @@
             <td><a href="update/{{order.id}}"> <img src="/images/update.png" height="30" alt="Update"></a></td>
             <td><a href="delete/{{order.id}}"> <img src="/images/delete.png" height="30" alt="Delete"></a></td>
                 </tr>
+        
             {% endfor %}
     </table>
 
