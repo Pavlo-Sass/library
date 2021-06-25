@@ -17,7 +17,8 @@ a:hover {
 }
 
 img {max-width: 30px; height: auto;}
-.cover img {max-width: 300px; height: auto;}
+
+.cover {max-width: 300px; height: auto;}
 
 img.img-article-left {
 	max-width: 300px;
