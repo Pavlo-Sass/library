@@ -22,6 +22,7 @@ class Book(models.Model):
     description = models.TextField(blank=True)
     count = models.IntegerField(default=10)
     authors = models.ManyToManyField(Author, related_name='books')
+    cover = models.ImageField(upload_to='photos/covers/%Y/%m/%d/', blank=True)
 
     def __str__(self):
         """
@@ -71,7 +72,7 @@ class Book(models.Model):
         return False
 
     @staticmethod
-    def create(name, description, count=10, authors=None):
+    def create(name, description, count=10, authors=None, cover=None):
         """
         param name: Describes name of the book
         type name: str max_length=128
@@ -83,7 +84,7 @@ class Book(models.Model):
         type authors: list->Author
         :return: a new book object which is also written into the DB
         """
-        book = Book(name=name, description=description, count=count)
+        book = Book(name=name, description=description, count=count, cover=cover)
         try:
             book.save()
             if authors is not None:
@@ -113,6 +114,7 @@ class Book(models.Model):
             'name': self.name,
             'description': self.description,
             'count': self.count,
+            'cover': self.cover,
             'authors': [author.id for author in self.authors.all()]
         }
 

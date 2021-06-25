@@ -26,12 +26,12 @@ def create_book(request):
     if request.method == 'POST':
         form = AddForm(request.POST, request.FILES)
         if form.is_valid():
-            try:
+            # try:
 
-                Book.create(**form.cleaned_data)
-                return redirect('books')
-            except:
-                form.add_error(None, 'При додавані книги виникла помилка')
+            Book.create(**form.cleaned_data)
+            return redirect('books')
+            # except:
+            #     form.add_error(None, 'При додавані книги виникла помилка')
 
     else:
         form = AddForm()
