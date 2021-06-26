@@ -23,3 +23,6 @@ class AddForm(forms.ModelForm):
         #     'count':forms.IntegerField()
         #     'category': forms.Select(attrs={'class': 'form-control'}),
         # }
+
+    # def clean_name(self):
+    #     pass

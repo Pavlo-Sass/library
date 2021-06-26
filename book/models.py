@@ -84,7 +84,8 @@ class Book(models.Model):
         type authors: list->Author
         :return: a new book object which is also written into the DB
         """
-        book = Book(name=name, description=description, count=count, cover=cover)
+        book = Book(name=name, description=description, count=count, cover=None)
+
         try:
             book.save()
             if authors is not None:
