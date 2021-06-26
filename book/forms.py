@@ -1,4 +1,6 @@
 from django import forms
+from django.core.exceptions import ValidationError
+
 from author.models import Author
 from .models import Book
 
@@ -24,5 +26,9 @@ class AddForm(forms.ModelForm):
         #     'category': forms.Select(attrs={'class': 'form-control'}),
         # }
 
-    # def clean_name(self):
-    #     pass
+    def clean_name(self):
+        name = self.cleaned_data['name']
+        if len(name) > 128:
+            raise ValidationError('Довжина перевищує 128 знаків')
+
+        return name
