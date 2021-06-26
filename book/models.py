@@ -29,7 +29,7 @@ class Book(models.Model):
         Magic method is redefined to show all information about Book.
         :return: book id, book name, book description, book count, book authors
         """
-        return self.name
+        return f"self.name"
         # return str(self.to_dict())[1:-1]
 
 
@@ -118,7 +118,7 @@ class Book(models.Model):
             'authors': [author.id for author in self.authors.all()]
         }
 
-    def update(self, name=None, description=None, count=None, **kwargs):
+    def update(self, name=None, description=None, count=None, cover = None, **kwargs):
         """
         Updates book in the database with the specified parameters.\n
         param name: Describes name of the book
@@ -132,6 +132,8 @@ class Book(models.Model):
 
         if name:
             self.name = name
+        if cover:
+            self.cover = cover
         if description:
             self.description = description
         if count:

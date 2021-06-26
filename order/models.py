@@ -44,7 +44,9 @@ class Order(models.Model):
         if book.count <= len([order for order in Order.get_not_returned_books() if order.book.id == book.id]):
             return
         try:
+            order.book.count -= 1
             order.save()
+            order.book.save()
             return order
         except (IntegrityError, AttributeError, DataError, ValueError) as err:
             # print(err)
@@ -65,6 +67,8 @@ class Order(models.Model):
             self.plated_end_at = plated_end_at
         if end_at:
             self.end_at = end_at
+            self.book.count += 1
+            self.book.save()
         self.save()
 
     @staticmethod
@@ -87,8 +91,10 @@ class Order(models.Model):
 
         try:
             user = Order.objects.get(id=order_id)
-            user.delete()
-            return True
+            if user.end_at:
+                user.delete()
+                return True
+            return False
         except Order.DoesNotExist:
             # LOGGER.error("User does not exist")
             pass

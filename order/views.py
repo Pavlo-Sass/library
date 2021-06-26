@@ -22,8 +22,10 @@ def create_order(request):
         form = AddForm(request.POST, request.FILES)
         if form.is_valid():
             try:
-                Order.create(**form.cleaned_data)
-                return redirect('orders')
+                if not Order.create(**form.cleaned_data):
+                    form.add_error(None, f"Шановний_а {form.cleaned_data['user']} На жаль в бібліотеці залишилася тільки одна книжка. І вона конче потрібна бібліотекарю. Спробуйте вибрати іншу книгу")
+                else:
+                    return redirect('orders')
             except:
                 form.add_error(None, 'При додавані замовлення виникла помилка')
     else:
@@ -68,4 +70,4 @@ def update_order(request, order_id):
 def delete_order(request, order_id):
     if Order.delete_by_id(order_id):
         return redirect('orders')
-    return HttpResponse('Памілка!!!')
+    return HttpResponse('Памілка!!! Ти намагаєшся видалити не завершене замовлення. Спочатку зазнач дату повернення а потім вже видаляй')
