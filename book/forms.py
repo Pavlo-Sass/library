@@ -15,8 +15,8 @@ from .models import Book
 class AddForm(forms.ModelForm):
     class Meta:
         model = Book
-        fields = '__all__'
-        # fields = ['name', 'description', 'count', 'authors', 'cover']
+        # fields = '__all__'
+        fields = ['name', 'description', 'count', 'authors', 'cover']
         # widgets = {
         #     'name': forms.TextInput(attrs={'class': 'form-control'}),
         #     'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 5}),

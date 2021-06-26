@@ -29,7 +29,7 @@ class Book(models.Model):
         Magic method is redefined to show all information about Book.
         :return: book id, book name, book description, book count, book authors
         """
-        return f"self.name"
+        return self.name
         # return str(self.to_dict())[1:-1]
 
 
