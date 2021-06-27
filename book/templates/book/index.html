@@ -8,9 +8,10 @@
         <caption>{{ title }}</caption>
             <tr>
             <th><a href="?order_by=id">ID</a></th>
-            <th><a href="?order_by=name">Name</a></th>
-            <th><a href="?order_by=description">Description</a></th>
-            <th><a href="?order_by=count">Count</a></th>
+            <th><a href="?order_by=name">Назва</a></th>
+            <th><a href="?order_by=description">Опис</a></th>
+            <th><a href="?order_by=count">На складі</a></th>
+            <th>На руках</th>
             <th>Authors</th>
             <th>Details</th>
             <th>Update</th>
@@ -18,13 +19,14 @@
             </tr>
             {% for book in list_books %}
                 <tr class="{% cycle 'grey' 'white' %}">
-            <td><a href="{% url 'read_book' book.id %}"> {{book.id}}</a></td>
+            <td>{{book.id}}</td>
             <td><a href="{% url 'read_book' book.id %}"> {{book.name}}</a></td>
-            <td><a href="{% url 'read_book' book.id %}"> {{book.description}}</a></td>
-            <td><a href="{% url 'read_book' book.id %}"> {{book.count}}</a></td>
+            <td>{{book.description}}</td>
+            <td>{{book.count}}</td>
+            <td><a href="/orders/search/?answer={{book.name}}"> {{book.order_set.all|length}}</a></td>
             <td><a href="{% url 'read_book' book.id %}">
                 {% for author in book.authors.all%}
-                <p>{{author}}</p>
+                <p><a href="/authors/{{author.id}}">{{author}}</a>  </p>
                 {% endfor %}
             </a></td>
             <td><a href="{% url 'read_book' book.id %}"> <img src="/images/read.png" height="30" alt="Details"></a></td>

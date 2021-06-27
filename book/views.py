@@ -13,7 +13,8 @@ BASE_CONREXT = {'menu': menu}
 
 def index(request):
     order_by = request.GET.get('order_by', 'id')
-    list_books = list(Book.objects.all().order_by(order_by))
+    list_books = Book.objects.all().order_by(order_by)
+    # count = book.order_set.all().values_list()
     context = {
         'list_books': list_books,
         'title': 'Наші Книжки'
