@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .forms import AddForm, EditForm
@@ -10,7 +11,8 @@ menu = [1, 2, 3]
 BASE_CONREXT = {'menu': menu}
 
 def index(request):
-    list_orders = list(Order.get_all())
+    order_by = request.GET.get('order_by', 'id')
+    list_orders = Order.objects.all().order_by(order_by)
     context = {
         'list_orders': list_orders,
         'title': 'Наші замовлення'
@@ -77,3 +79,17 @@ def delete_order(request, order_id):
     if Order.delete_by_id(order_id):
         return redirect('orders')
     return HttpResponse('Памілка!!! Ти намагаєшся видалити не завершене замовлення. Спочатку зазнач дату повернення а потім вже видаляй')
+
+def search_orders(request):
+    answer = request.GET['answer']
+    list_orders = list(Order.objects.filter(Q(book__name__contains=answer) |
+                                            Q(book__description__contains=answer)|
+                                            Q(user__first_name__contains=answer)|
+                                            Q(user__middle_name__contains=answer)|
+                                            Q(user__last_name__contains=answer)))
+    context = {
+        'list_orders': list_orders,
+        'title': 'Наші Книжки'
+    }
+    context.update(BASE_CONREXT)
+    return render(request, 'order/index.html', context)

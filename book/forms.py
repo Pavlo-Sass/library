@@ -13,5 +13,10 @@ class AddForm(forms.ModelForm):
         name = self.cleaned_data['name']
         if len(name) > 128:
             raise ValidationError('Довжина перевищує 128 знаків')
-
         return name
+
+    def clean_count(self):
+        count = self.cleaned_data['count']
+        if count < 1:
+            raise ValidationError('Додайте хоча б одну книжку')
+        return count

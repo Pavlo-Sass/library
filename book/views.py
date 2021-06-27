@@ -12,11 +12,8 @@ menu = [1, 2, 3]
 BASE_CONREXT = {'menu': menu}
 
 def index(request):
-    list_books = list(Book.objects.all())
-    # print(list_books)
-    # answ = []
-    # for book in list_books:
-    #     answ.append(Book.to_dict(book))
+    order_by = request.GET.get('order_by', 'id')
+    list_books = list(Book.objects.all().order_by(order_by))
     context = {
         'list_books': list_books,
         'title': 'Наші Книжки'
@@ -85,6 +82,7 @@ def delete_book(request, book_id):
     return HttpResponse('Памілка!!!')
 
 def search_book(request):
+    # order_by = request.GET.get('order_by', 'defaultOrderField')
     answer = request.GET['answer']
     list_books = list(Book.objects.filter(Q(description__contains=answer) | Q(name__contains=answer)))
     context = {

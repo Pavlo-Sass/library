@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-<form action="{% url 'create' %}" method="post" enctype="multipart/form-data">
+<form action="{% url 'create_order' %}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Додати замовлення</button>

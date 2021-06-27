@@ -7,7 +7,7 @@ import datetime
 class AddForm(forms.ModelForm):
     class Meta:
         model = Order
-        fields = ['user', 'book', 'end_at']
+        fields = ['user', 'book']
 
 
 class EditForm(forms.ModelForm):

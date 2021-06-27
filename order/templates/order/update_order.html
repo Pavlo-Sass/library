@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 {{ form.non__field_errors }}
-<form action="{% url 'update' order_id %}" method="post">
+<form action="{% url 'update_order' order_id %}" method="post">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Редагувати замовлення</button>
