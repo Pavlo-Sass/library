@@ -119,7 +119,7 @@ class Book(models.Model):
             'authors': [author.id for author in self.authors.all()]
         }
 
-    def update(self, name=None, description=None, count=None, cover = None, **kwargs):
+    def update(self, name=None, description=None, count=None, cover = None, authors=None, **kwargs):
         """
         Updates book in the database with the specified parameters.\n
         param name: Describes name of the book
@@ -139,6 +139,8 @@ class Book(models.Model):
             self.description = description
         if count:
             self.count = count
+        if authors:
+            self.authors.set(authors)
         self.save()
 
     def add_authors(self, authors):

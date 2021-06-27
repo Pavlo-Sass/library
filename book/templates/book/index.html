@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 <h3>
-    <a href="create/"><img src="/images/create.png"> Створити </a>
+    <a href="{% url 'create_book' %}"><img src="/images/create.png"> Створити </a>
 </h3>
 <div>
     <table>
@@ -18,14 +18,20 @@
             </tr>
             {% for book in list_books %}
                 <tr class="{% cycle 'grey' 'white' %}">
-            <td><a href="{{book.id}}"> {{book.id}}</a></td>
-            <td><a href="{{book.id}}"> {{book.name}}</a></td>
-            <td><a href="{{book.id}}"> {{book.description}}</a></td>
-            <td><a href="{{book.id}}"> {{book.count}}</a></td>
-            <td><a href="{{book.id}}"> {{book.authors}}</a></td>
-            <td><a href="{{book.id}}"> <img src="/images/read.png" height="30" alt="Details"></a></td>
-            <td><a href="update/{{book.id}}"> <img src="/images/update.png" height="30" alt="Update"></a></td>
-            <td><a href="delete/{{book.id}}"> <img src="/images/delete.png" height="30" alt="Delete"></a></td>
+            <td><a href="{% url 'read_book' book.id %}"> {{book.id}}</a></td>
+            <td><a href="{% url 'read_book' book.id %}"> {{book.name}}</a></td>
+            <td><a href="{% url 'read_book' book.id %}"> {{book.description}}</a></td>
+            <td><a href="{% url 'read_book' book.id %}"> {{book.count}}</a></td>
+            <td><a href="{% url 'read_book' book.id %}">
+                {% for author in book.authors.all%}
+                <p>{{author}}</p>
+                {% endfor %}
+            </a></td>
+            <td><a href="{% url 'read_book' book.id %}"> <img src="/images/read.png" height="30" alt="Details"></a></td>
+            <td><a href="{% url 'update_book' book.id %}">
+                <img src="/images/update.png" height="30" alt="Update"></a></td>
+            <td><a href="{% url 'delete_book' book.id %}">
+                <img src="/images/delete.png" height="30" alt="Delete"></a></td>
                 </tr>
             {% endfor %}
     </table>

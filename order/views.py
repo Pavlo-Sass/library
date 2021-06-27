@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .forms import AddForm
+from .forms import AddForm, EditForm
 from .models import Order
+import datetime
 
 
 menu = [1, 2, 3]
@@ -18,11 +19,13 @@ def index(request):
     return render(request, 'order/index.html', context)
 
 def create_order(request):
+    plated_end_at = datetime.datetime.today() + datetime.timedelta(days = 7)
     if request.method == 'POST':
         form = AddForm(request.POST, request.FILES)
         if form.is_valid():
             try:
-                if not Order.create(**form.cleaned_data):
+                print("order try")
+                if not Order.create(plated_end_at=plated_end_at, **form.cleaned_data):
                     form.add_error(None, f"Шановний_а {form.cleaned_data['user']} На жаль в бібліотеці залишилася тільки одна книжка. І вона конче потрібна бібліотекарю. Спробуйте вибрати іншу книгу")
                 else:
                     return redirect('orders')
@@ -49,9 +52,12 @@ def get_order(request, order_id):
 def update_order(request, order_id):
     order = Order.get_by_id(order_id)
     order_dict = Order.to_dict(order)
-    form = AddForm(order_dict)
+    if order_dict['end_at'] is None:
+        # order_dict['end_at'] = datetime.datetime.today()
+        order_dict['end_at'] = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    form = EditForm(order_dict)
     if request.method == 'POST':
-        form = AddForm(request.POST, request.FILES)
+        form = EditForm(request.POST, request.FILES)
         if form.is_valid():
             try:
                 order.update(**form.cleaned_data)

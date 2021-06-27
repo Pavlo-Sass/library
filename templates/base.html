@@ -10,16 +10,11 @@
 <body>
 {% block mainmenu %}
 		<div class="header">
-			<ul id="mainmenu" class="mainmenu">
-{% for m in menu %}
-	{% if not forloop.last %}
-			<li><a href="#">{{m.title}}</a></li>
-	{% else %}
-			<li class="last"><a href="#">{{m.title}}</a></li>
-	{% endif %}
-{% endfor %}
-			</ul>
-			<div class="clear"></div>
+<form action="search/" method="get">
+ <p style="color: #FFF"> <b>Пошук</b>
+  <input type="text" name="answer">
+  <input type="submit"></p>
+ </form>
 		</div>
 {% endblock mainmenu %}
 

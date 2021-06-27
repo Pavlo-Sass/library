@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from authentication.models import CustomUser
 from .forms import AddForm
 from .models import Book
+from django.db.models import Q
 
 
 menu = [1, 2, 3]
@@ -12,11 +13,12 @@ BASE_CONREXT = {'menu': menu}
 
 def index(request):
     list_books = list(Book.objects.all())
-    answ = []
-    for book in list_books:
-        answ.append(Book.to_dict(book))
+    # print(list_books)
+    # answ = []
+    # for book in list_books:
+    #     answ.append(Book.to_dict(book))
     context = {
-        'list_books': answ,
+        'list_books': list_books,
         'title': 'Наші Книжки'
                }
     context.update(BASE_CONREXT)
@@ -26,13 +28,11 @@ def create_book(request):
     if request.method == 'POST':
         form = AddForm(request.POST, request.FILES)
         if form.is_valid():
-            # try:
-
-            Book.create(**form.cleaned_data)
-            return redirect('books')
-            # except:
-            #     form.add_error(None, 'При додавані книги виникла помилка')
-
+            try:
+                Book.create(**form.cleaned_data)
+                return redirect('books')
+            except:
+                form.add_error(None, 'При додавані книги виникла помилка')
     else:
         form = AddForm()
     context = {
@@ -51,7 +51,7 @@ def get_book(request, book_id):
         users.append(CustomUser.get_by_id(user[1]))
     context = {
         'title': f"{info['name']}",
-        'info': info,
+        'info': book,
         'users': users
     }
     context.update(BASE_CONREXT)
@@ -83,3 +83,13 @@ def delete_book(request, book_id):
     if Book.delete_by_id(book_id):
         return redirect('books')
     return HttpResponse('Памілка!!!')
+
+def search_book(request):
+    answer = request.GET['answer']
+    list_books = list(Book.objects.filter(Q(description__contains=answer) | Q(name__contains=answer)))
+    context = {
+        'list_books': list_books,
+        'title': 'Наші Книжки'
+               }
+    context.update(BASE_CONREXT)
+    return render(request, 'book/index.html', context)

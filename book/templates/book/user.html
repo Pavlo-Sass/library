@@ -14,7 +14,12 @@
     <p>Імя: {{info.name}}</p>
     <p>Опис: {{info.description}}</p>
     <p>Кількість: {{info.count}}</p>
-    <p>Автори: {{info.authors}}</p>
+    <p>Автори: </p>
+        {% for author in info.authors.all%}
+    <ul>
+        <li><a href="\authors\{{author.id}}"> {{ author }}</a></li>
+    {% endfor %}
+        </ul>
     <p>Книжку замовили: </p>
         <ul>
             {% if not users %}

@@ -39,19 +39,20 @@ class Order(models.Model):
 
     @staticmethod
     def create(user, book, plated_end_at, **kwargs):
-
+        print("++++++++++++++++++++++++++")
         order = Order(user=user, book=book, plated_end_at=plated_end_at)
         if book.count <= len([order for order in Order.get_not_returned_books() if order.book.id == book.id]):
             return
-        try:
-            order.book.count -= 1
-            order.save()
-            order.book.save()
-            return order
-        except (IntegrityError, AttributeError, DataError, ValueError) as err:
-            # print(err)
-            # LOGGER.error("Wrong attributes or relational integrity error")
-            pass
+        # try:
+        print(plated_end_at)
+        order.book.count -= 1
+        order.save()
+        order.book.save()
+        return order
+        # except (IntegrityError, AttributeError, DataError, ValueError) as err:
+        #     # print(err)
+        #     # LOGGER.error("Wrong attributes or relational integrity error")
+        #     pass
 
     @staticmethod
     def get_by_id(order_id):
